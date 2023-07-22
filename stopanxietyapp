@@ -1,0 +1,63 @@
+import UIKit
+
+class AnxietyCopingViewController: UIViewController {
+
+    // Define UI elements
+    var optionsStackView: UIStackView!
+
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        setupUI()
+    }
+
+    func setupUI() {
+        // Create and configure the stack view to hold the buttons
+        optionsStackView = UIStackView()
+        optionsStackView.axis = .vertical
+        optionsStackView.alignment = .fill
+        optionsStackView.distribution = .fillEqually
+        optionsStackView.spacing = 20
+
+        // Create buttons for different coping options
+        let deepBreathingButton = createButton(title: "Deep Breathing")
+        let meditationButton = createButton(title: "Meditation")
+        let physicalActivityButton = createButton(title: "Physical Activity")
+        let mindfulnessButton = createButton(title: "Mindfulness")
+
+        // Add buttons to the stack view
+        optionsStackView.addArrangedSubview(deepBreathingButton)
+        optionsStackView.addArrangedSubview(meditationButton)
+        optionsStackView.addArrangedSubview(physicalActivityButton)
+        optionsStackView.addArrangedSubview(mindfulnessButton)
+
+        // Add the stack view to the view hierarchy
+        view.addSubview(optionsStackView)
+
+        // Constraints to make the stack view fill the view
+        optionsStackView.translatesAutoresizingMaskIntoConstraints = false
+        NSLayoutConstraint.activate([
+            optionsStackView.topAnchor.constraint(equalTo: view.topAnchor, constant: 100),
+            optionsStackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 40),
+            optionsStackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -40),
+            optionsStackView.bottomAnchor.constraint(equalTo: view.bottomAnchor, constant: -100)
+        ])
+    }
+
+    func createButton(title: String) -> UIButton {
+        let button = UIButton(type: .system)
+        button.setTitle(title, for: .normal)
+        button.titleLabel?.font = UIFont.systemFont(ofSize: 24)
+        button.addTarget(self, action: #selector(handleCopingOption(_:)), for: .touchUpInside)
+        return button
+    }
+
+    @objc func handleCopingOption(_ sender: UIButton) {
+        // Implement the action for each coping option button here
+        let selectedOption = sender.titleLabel?.text ?? ""
+        // You can show an alert or navigate to a different view based on the selected option
+        // For simplicity, we'll just print the selected option for now.
+        print("Selected coping option: \(selectedOption)")
+    }
+}
+
+// To use this view controller, you can create a UINavigationController and set this view controller as the root view controller, then present the navigation controller.
